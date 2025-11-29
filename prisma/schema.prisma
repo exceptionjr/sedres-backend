@@ -18,7 +18,6 @@ model User {
   name     String
   email    String @unique
   password String
-  otps     Otp[]
 }
 
 model Contact {
@@ -28,13 +27,4 @@ model Contact {
   phone     String
   doubt     String
   createdAt DateTime @default(now())
-}
-
-model Otp {
-  id        String   @id @default(uuid())
-  code      String
-  userId    String
-  expiresAt DateTime
-  used      Boolean  @default(false)
-  user      User     @relation(fields: [userId], references: [id])
 }
