@@ -28,7 +28,7 @@ server.use((req, res) => {
     res.status(404).json({ error: "Not Found", message: `Route ${req.method} ${req.path} not found` });
 });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 const host = process.env.HOST || "0.0.0.0";
 
 server.listen(Number(port), host, () => {
