@@ -17,7 +17,7 @@ mainRouter.get("/", (req, res) => {
 });
 
 mainRouter.post("/auth/signin", authController.signIn);
-//mainRouter.post("/auth/signup", authController.signUp);
+mainRouter.post("/auth/signup", authController.signUp);
 
 mainRouter.post("/contact", contactController.create);
 mainRouter.get("/contact", verifyJwt, contactController.getAll);
