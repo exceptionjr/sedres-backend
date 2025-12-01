@@ -35,8 +35,9 @@ export const create: RequestHandler = async (req, res) => {
 export const getAll: RequestHandler = async (req, res) => {
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
+    const search = req.query.search as string | undefined;
 
-    const result = await findAllContacts(page, limit);
+    const result = await findAllContacts(page, limit, search);
     res.json(result);
 }
 

@@ -13,16 +13,24 @@ export const createContact = async (name: string, email: string, phone: string, 
     return contact;
 }
 
-export const findAllContacts = async (page: number = 1, limit: number = 10) => {
+export const findAllContacts = async (page: number = 1, limit: number = 10, search?: string) => {
     const skip = (page - 1) * limit;
+
+    const where = search ? {
+        name: {
+            contains: search,
+            mode: 'insensitive' as const
+        }
+    } : {};
 
     const [contacts, total] = await Promise.all([
         prisma.contact.findMany({
             skip,
             take: limit,
+            where,
             orderBy: { createdAt: 'desc' }
         }),
-        prisma.contact.count()
+        prisma.contact.count({ where })
     ]);
 
     return {
