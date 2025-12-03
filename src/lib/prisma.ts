@@ -12,11 +12,11 @@ function createPrismaClient() {
         throw new Error('Database connection string not found. Please set POSTGRES_PRISMA_URL or DATABASE_URL.');
     }
 
+    const requiresSsl = connectionString.includes('sslmode=require');
+
     const pool = new Pool({
         connectionString,
-        ssl: {
-            rejectUnauthorized: false
-        }
+        ssl: requiresSsl ? { rejectUnauthorized: false } : false
     });
     const adapter = new PrismaPg(pool);
 
