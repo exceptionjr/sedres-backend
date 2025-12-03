@@ -26,9 +26,7 @@ app.use(mainRouter);
 
 app.use((req, res) => {
     res.status(404).json({ error: "Not Found", message: `Route ${req.method} ${req.path} not found` });
-});
-
-// For local development
+});// For local development
 if (process.env.NODE_ENV !== "production") {
     const port = process.env.PORT || 4000;
     const host = process.env.HOST || "0.0.0.0";
