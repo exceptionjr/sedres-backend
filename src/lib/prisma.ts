@@ -1,21 +1,26 @@
 import { PrismaClient } from '@prisma/client';
-import { PrismaPg } from '@prisma/adapter-pg';
-import pg from 'pg';
+import { PrismaNeon } from '@prisma/adapter-neon';
+import { neonConfig, Pool } from '@neondatabase/serverless';
+import ws from 'ws';
 import 'dotenv/config';
+
+// Configure WebSocket for Neon serverless
+neonConfig.webSocketConstructor = ws;
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 
 function createPrismaClient() {
-    const connectionString = process.env.DATABASE_URL;
+    // Use Vercel Postgres URL (which uses Neon under the hood)
+    const connectionString = process.env.POSTGRES_PRISMA_URL || process.env.DATABASE_URL;
 
-    const pool = new pg.Pool({
-        connectionString,
-        ssl: {
-            rejectUnauthorized: false
-        }
-    });
+    if (!connectionString) {
+        throw new Error('Database connection string not found. Please set POSTGRES_PRISMA_URL or DATABASE_URL.');
+    }
 
-    const adapter = new PrismaPg(pool);
+    // For Vercel Postgres (Neon-based)
+    const pool = new Pool({ connectionString });
+    const adapter = new PrismaNeon(pool as any);
+
     return new PrismaClient({ adapter });
 }
 

@@ -8,15 +8,20 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch ./src/server.ts",
-    "build": "npx prisma generate && tsc",
+    "build": "prisma generate && tsc",
     "start": "node dist/server.js",
-    "migrate:dev": "npx prisma migrate dev",
-    "migrate:deploy": "npx prisma migrate deploy",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "postinstall": "prisma generate",
+    "vercel-build": "prisma generate && prisma migrate deploy && tsc",
     "test:db": "tsx ./src/scripts/test-db-connection.ts"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "@prisma/adapter-neon": "^7.0.1",
     "@prisma/adapter-pg": "^7.0.1",
     "@prisma/client": "^7.0.1",
+    "@vercel/postgres": "^0.10.0",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
@@ -25,6 +30,7 @@
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.16.3",
     "uuid": "^13.0.0",
+    "ws": "^8.18.0",
     "zod": "^4.1.13"
   },
   "devDependencies": {
@@ -35,6 +41,7 @@
     "@types/node": "^24.10.1",
     "@types/pg": "^8.15.6",
     "@types/uuid": "^10.0.0",
+    "@types/ws": "^8.18.1",
     "prisma": "^7.0.1",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"

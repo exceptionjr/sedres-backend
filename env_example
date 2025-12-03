@@ -1,5 +1,12 @@
+# Local development (Docker)
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=Sedres123
 POSTGRES_DB=sedres_db
 DATABASE_URL="postgresql://postgres:Sedres123@database:5432/sedres_db?schema=public"
+
+# Vercel Postgres (set automatically by Vercel when you connect a database)
+# POSTGRES_PRISMA_URL="postgres://user:password@host/database?sslmode=require&pgbouncer=true&connect_timeout=15"
+# POSTGRES_URL_NON_POOLING="postgres://user:password@host/database?sslmode=require"
+
+# JWT Secret
 JWT_SECRET="Sedres123"
