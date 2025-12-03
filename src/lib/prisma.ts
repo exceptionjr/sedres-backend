@@ -6,6 +6,9 @@ import 'dotenv/config';
 
 // Configure WebSocket for Neon serverless
 neonConfig.webSocketConstructor = ws;
+neonConfig.useSecureWebSocket = true;
+neonConfig.pipelineTLS = false;
+neonConfig.pipelineConnect = false;
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 
